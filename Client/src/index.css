@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+html,
+body,
+#root,
+.app {
+  height: 100%;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #7a7f9d;
+}
+::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+.scrollable-element {
+  -ms-overflow-style: none;  /* Internet Explorer and Edge */
+  scrollbar-width: none;      /* Firefox */
+}
+
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #21295c;
+}
+
+/* Handle on Hover */
+::-webkit-scrollbar-track:hover {
+  background: #21295c;
+}
+
+
+#notificationHeader {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#notificationBody {
+  margin-top: 10px;
+  text-align: center;
+}
+
+#imageContainer {
+  display: flex;
+  align-items: center;
+  height: 100px;
+  object-fit: contain;
+}
+
