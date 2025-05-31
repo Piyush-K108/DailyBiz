@@ -18,7 +18,7 @@ import {
   ChevronLeft,
   ChevronRightOutlined,
   MopedOutlined,
-  CurrencyRupeeRounded
+  CurrencyRupeeRounded,
 } from "@mui/icons-material";
 import { Car, Delivery } from "../Redux/Counter/counterAction";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -28,15 +28,12 @@ import scrollReveal from "scrollreveal"; // Import scrollReveal
 
 import {
   Dashboard as DashboardIcon,
-  AttachMoney as RevenueIcon,
   People as CustomersIcon,
-  TwoWheeler as BikesIcon,
-  DirectionsCar as CarsIcon,
-  Today as TodaysBusinessIcon,
-  Build as BikeUtilityIcon,
-  Handyman as ServicingIcon,
-  Receipt as BillsIcon,
-  Groups as TeamInfoIcon,
+  Store as VendorsIcon,
+  Inventory2 as ProductsIcon,
+  ShoppingCart as PurchaseIcon,
+  PointOfSale as SalesIcon,
+  AccountBalance as LedgerIcon,
 } from "@mui/icons-material";
 
 const Sidebar = ({
@@ -60,7 +57,7 @@ const Sidebar = ({
     }
     return true;
   });
-  const navItemsdelivery = allNavItemsDelivery.filter((item) => {
+  const navItemsdelivery = allNavItems.filter((item) => {
     if (item.text === "Delivery Revenue") {
       return hasRevenueAccess;
     }
@@ -89,7 +86,7 @@ const Sidebar = ({
         interval: 100, // Delay between animations
       });
     }
-  }, [isSidebarOpen,car,delivery]);
+  }, [isSidebarOpen, car, delivery]);
   const handleClick = () => {
     if (!car && !delivery) {
       dispatch(Car(true)); // Set car to true
@@ -115,8 +112,8 @@ const Sidebar = ({
             "& .MuiDrawer-paper": {
               display: "flex",
               flexDirection: "column",
-              height: "100vh", // Full height of the viewport
-              justifyContent: "space-between", // Pushes content to top and bottom
+              height: "100vh",
+              justifyContent: "space-between",
               color: "#fff",
               backgroundColor: "#000",
               boxSizing: "border-box",
@@ -128,8 +125,9 @@ const Sidebar = ({
             },
           }}
         >
+          {/* Top Logo & Close Icon */}
           <Box width="100%">
-            <Box m="2.5rem 2rem 2rem 3rem">
+            <Box px={3} pt={4} pb={2}>
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
                   <Typography
@@ -137,175 +135,85 @@ const Sidebar = ({
                     variant="h6"
                     sx={{
                       color: "#eab308",
-                      fontSize: !delivery?"1.55rem":"1.2725rem",
+                      fontSize: delivery ? "1.25rem" : "2rem",
                       fontWeight: "bold",
-                      userSelect: 'none',
+                      userSelect: "none",
                     }}
                   >
-                    {!delivery?"AiRYY ADMIN":"AiRYY DELIVERY"}
+                    DAILYBIZ
                   </Typography>
                 </Box>
                 {!isNonMobile && (
-                  <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                  <IconButton onClick={() => setIsSidebarOpen(false)}>
                     <ChevronLeft />
                   </IconButton>
                 )}
               </FlexBetween>
             </Box>
 
-            {/* Scrollable List */}
-            <Box
-              sx={{
-                flexGrow: 1,
-                overflowY: "auto", // Enable vertical scrolling
-                height: "calc(100vh - 200px)", 
-              }}
-            >
-              {delivery ? (
-                <List>
-                  {navItemsdelivery.map(({ text, icon, path }) => {
-                    if (!icon) {
-                      return (
-                        <Typography
-                          key={text}
-                          sx={{ m: "2.25rem 0 1rem 3rem" }}
-                        >
-                          {text}
-                        </Typography>
-                      );
-                    }
-                    const lcText = text.toLowerCase();
-
-                    return (
-                      <ListItem key={text} disablePadding className="nav-item">
+            {/* Scrollable Nav Items */}
+            <Box sx={{ flex: 1, overflowY: "auto", px: 1 }}>
+              <List>
+                {(delivery ? navItemsdelivery : navItems).map(
+                  ({ text, icon, path }) =>
+                    icon ? (
+                      <ListItem key={text} disablePadding>
                         <ListItemButton
                           onClick={() => {
-                            setActive(lcText);
+                            setActive(text.toLowerCase());
                             navigate(path);
                           }}
                           sx={{
                             backgroundColor:
-                              active === lcText ? "#eab308" : "transparent",
-                            color:
-                              active === lcText
-                                ? theme.palette.primary[600]
-                                : theme.palette.secondary[100],
-                          }}
-                        >
-                          <ListItemIcon
-                            sx={{
-                              ml: "1rem",
-                              color:
-                                active === lcText
-                                  ? theme.palette.primary[600]
-                                  : theme.palette.secondary[200],
-                            }}
-                          >
-                            {icon}
-                          </ListItemIcon>
-                          <ListItemText primary={text} />
-                          {active === lcText && (
-                            <ChevronRightOutlined sx={{ ml: "auto" }} />
-                          )}
-                        </ListItemButton>
-                      </ListItem>
-                    );
-                  })}
-                </List>
-              ) : (
-                <List>
-                  {navItems.map(({ text, icon, path }) => {
-                    if (!icon) {
-                      return (
-                        <Typography
-                          key={text}
-                          sx={{ m: "2.25rem 0 1rem 3rem" }}
-                        >
-                          {text}
-                        </Typography>
-                      );
-                    }
-                    const lcText = text.toLowerCase();
+                              active === text.toLowerCase()
+                                ? "#eab308"
+                                : "transparent",
+                            borderRadius: "8px",
+                            mx: 1,
+                            my: 1,
 
-                    return (
-                      <ListItem key={text} disablePadding className="nav-item">
-                        <ListItemButton
-                          onClick={() => {
-                            setActive(lcText);
-                            navigate(path);
-                          }}
-                          sx={{
-                            backgroundColor:
-                              active === lcText ? "#eab308" : "transparent",
-                            color:
-                              active === lcText
-                                ? theme.palette.primary[600]
-                                : theme.palette.secondary[100],
+                            "&:hover": {
+                              backgroundColor: "#666",
+                            },
                           }}
                         >
-                          <ListItemIcon
-                            sx={{
-                              ml: "1rem",
-                              color:
-                                active === lcText
-                                  ? theme.palette.primary[600]
-                                  : theme.palette.secondary[200],
-                            }}
-                          >
-                            {icon}
+                          <ListItemIcon>
+                            {React.cloneElement(icon, {
+                              style: { color: active != text.toLowerCase() ? "#FFF" : "#000" },
+                            })}
                           </ListItemIcon>
-                          <ListItemText primary={text} />
-                          {active === lcText && (
+
+                          <ListItemText
+                            primary={text}
+                            primaryTypographyProps={{
+                              fontSize: "1.2rem",
+                              fontWeight: "500",
+                           
+                              color: active != text.toLowerCase() ? "#FFF" : "#000",
+                              textShadow: "0 0 4px rgba(255, 255, 255, 0.3)",
+                            }}
+                          />
+
+                          {active === text.toLowerCase() && (
                             <ChevronRightOutlined sx={{ ml: "auto" }} />
                           )}
                         </ListItemButton>
                       </ListItem>
-                    );
-                  })}
-                </List>
-              )}
+                    ) : (
+                      <Typography
+                        key={text}
+                        sx={{
+                          m: "1.5rem 0 1rem 2rem",
+                          fontSize: "0.875rem",
+                          color: "#aaa",
+                        }}
+                      >
+                        {text}
+                      </Typography>
+                    )
+                )}
+              </List>
             </Box>
-          </Box>
-
-          {/* Bottom Section */}
-          <Box
-            sx={{ marginLeft: "1rem" }}
-            p="1rem"
-            borderTop={`1px solid ${theme.palette.secondary[300]}`}
-          >
-            <FlexBetween textTransform="none" gap="1rem">
-              <Box
-                component="img"
-                alt="profile"
-                src={user.ProfilePic || profileImage}
-                height="40px"
-                width="40px"
-                borderRadius="50%"
-                sx={{ objectFit: "cover" }}
-                zIndex={1}
-              />
-              <Box textAlign="left">
-                <Typography
-                  fontWeight="bold"
-                  fontSize="0.9rem"
-                  sx={{ color: theme.palette.secondary[100] }}
-                >
-                  {user.name}
-                </Typography>
-                <Typography
-                  fontSize="0.8rem"
-                  sx={{ color: theme.palette.secondary[200] }}
-                >
-                  {user.City}
-                </Typography>
-              </Box>
-              <SettingsOutlined
-                sx={{
-                  color: theme.palette.secondary[300],
-                  fontSize: "25px ",
-                }}
-              />
-            </FlexBetween>
           </Box>
         </Drawer>
       )}
@@ -322,88 +230,33 @@ const allNavItems = [
     path: "/dashboard",
   },
   {
-    text: "Revenue",
-    icon: <RevenueIcon />,
-    path: "/revenue",
-  },
-  {
     text: "Customers",
     icon: <CustomersIcon />,
     path: "/customers",
   },
   {
-    text: "Bikes",
-    icon: <BikesIcon />,
-    path: "/bikes",
-  },
-
-  {
-    text: "Today's Business",
-    icon: <TodaysBusinessIcon />,
-    path: "/todaysbusiness",
+    text: "Vendors",
+    icon: <VendorsIcon />,
+    path: "/vendors",
   },
   {
-    text: "Bike Utility",
-    icon: <BikeUtilityIcon />,
-    path: "/bikeutility",
+    text: "Products",
+    icon: <ProductsIcon />,
+    path: "/products",
   },
   {
-    text: "Servicing",
-    icon: <ServicingIcon />,
-    path: "/servicing",
+    text: "Purchase",
+    icon: <PurchaseIcon />,
+    path: "/purchase",
   },
   {
-    text: "Bills",
-    icon: <BillsIcon />,
-    path: "/bills",
+    text: "Sales",
+    icon: <SalesIcon />,
+    path: "/sales",
   },
   {
-    text: "Team Info",
-    icon: <TeamInfoIcon />,
-    path: "/teaminfodata",
+    text: "Ledger",
+    icon: <LedgerIcon />,
+    path: "/ledger",
   },
-];
-
-
-import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
-import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
-import BatteryChargingFullIcon from '@mui/icons-material/BatteryChargingFull';
-
-const allNavItemsDelivery = [
-  {
-    text: "Dashboard",
-    icon: <DashboardIcon />, // Correct icon for Dashboard
-    path: "/dashboard",
-  },
-  {
-    text: "Delivery Revenue",
-    icon: <RevenueIcon />, 
-    path: "/deliveryrevenue",
-  },
-  {
-    text: "Delivery Boy",
-    icon: <DeliveryDiningIcon />, // Correct icon for Delivery Boy
-    path: "/deliveryboy",
-  },
-  {
-    text: "Delivery Bikes",
-    icon: <TwoWheelerIcon />, // Correct icon for Delivery Bikes
-    path: "/deliverybikes",
-  },
-  {
-    text: "Today's Business",
-    icon: <TodaysBusinessIcon />, // Correct icon for Delivery Bikes
-    path: "/deliverytodaysbusiness",
-  },
-  {
-    text: "Batterys",
-    icon: <BatteryChargingFullIcon />, // Correct icon for Batterys
-    path: "/batterys",
-  },
-  {
-    text: "Due Amount",
-    icon: <CurrencyRupeeRounded />,
-    path: "/dueamounts",
-  },
- 
 ];

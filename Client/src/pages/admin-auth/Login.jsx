@@ -97,7 +97,7 @@ const Login = ({ login, checkAuthenticated }) => {
     <div className="login-container">
       <div className="imgAndHead">
         <img src={adminIcon} height={100} width={102} alt="Admin-icon" />
-        <h2 className="login-heading">AIRYY ADMIN</h2>
+        <h2 className="login-heading">DAILYBIZ</h2>
       </div>
       <div className="login-box">
         {isLoading ? (
