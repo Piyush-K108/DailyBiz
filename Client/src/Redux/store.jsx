@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './Counter/counterReducer'; // Ensure this path is correct
-import globalReducer from './index'; // Ensure this path is correct
-
+import counterReducer from './Counter/counterReducer'; 
+import globalReducer from './index'; 
+import commonReducer from './Counter/commonSlice';
 // Create the store
 const store = configureStore({
   reducer: {
-    global: globalReducer, // Add the global reducer
-    counter: counterReducer, // Add the counter reducer
+    global: globalReducer, 
+    commonSilce: commonReducer,
+    counter: counterReducer, 
   },
 });
 
