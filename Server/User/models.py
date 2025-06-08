@@ -2,9 +2,8 @@ from django.db import models, transaction
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from decimal import Decimal
 
-
 class UserAccountManager(BaseUserManager):
-    def create_user(self, phone,role, password=None):
+    def create_user(self, phone, role, password=None):
         if not phone:
             raise ValueError("User must have a phone number")
         user = self.model(phone=phone)
@@ -15,10 +14,9 @@ class UserAccountManager(BaseUserManager):
         return user
 
     def create_superuser(self, phone, password):
-        user = self.create_user(phone=phone,role="superadmin", password=password)
+        user = self.create_user(phone=phone, role="superadmin", password=password)
         user.is_superuser = True
         user.is_staff = True
-        user.is_active = True
         user.role = 'superadmin'
         user.save()
         return user
@@ -78,7 +76,7 @@ class UserAccounts(AbstractBaseUser, PermissionsMixin):
     def save(self, *args, **kwargs):
         if not self.uid:
             with transaction.atomic():
-                last_used_id, created = LastUsedID.objects.get_or_create(pk=1)
+                last_used_id, _ = LastUsedID.objects.get_or_create(pk=1)
                 while True:
                     new_uid = f"U_AC{last_used_id.increment_uid()}"
                     if not UserAccounts.objects.filter(uid=new_uid).exists():
@@ -94,12 +92,25 @@ class UserAccounts(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.uid} - {self.phone}"
-    
+
 
 class Customer(models.Model):
-
+    user = models.OneToOneField(UserAccounts, on_delete=models.CASCADE, related_name='customer_profile')
     opening_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    address = models.TextField(null=True, blank=True)
+    credit_limit = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    remarks = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Customer: {self.user.get_full_name()}"
+
 
 class Vendor(models.Model):
-
+    user = models.OneToOneField(UserAccounts, on_delete=models.CASCADE, related_name='vendor_profile')
     opening_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    address = models.TextField(null=True, blank=True)
+    company_name = models.CharField(max_length=255, null=True, blank=True)
+    remarks = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Vendor: {self.user.get_full_name()}"
