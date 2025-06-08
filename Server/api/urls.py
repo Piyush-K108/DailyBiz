@@ -21,7 +21,10 @@ urlpatterns = [
     path("purchases/",include("Purchases.urls")),
     path("sales/",include("Sales.urls")),
     path("ledger/",include("Ledger.urls")),
-
+    path('api/users/', include('User.urls')),
+    path('api/products/', include('Products.urls')),
+    path('api/sales/', include('Sales.urls')),
+    path('api/purchases/', include('Purchases.urls')),
     
  
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

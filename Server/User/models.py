@@ -96,3 +96,16 @@ class UserAccounts(AbstractBaseUser, PermissionsMixin):
         return f"{self.uid} - {self.phone}"
     
 
+class Customer(models.Model):
+    name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15, blank=True)
+    email = models.EmailField(blank=True)
+    address = models.TextField(blank=True)
+    opening_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+class Vendor(models.Model):
+    name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15, blank=True)
+    email = models.EmailField(blank=True)
+    address = models.TextField(blank=True)
+    opening_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
