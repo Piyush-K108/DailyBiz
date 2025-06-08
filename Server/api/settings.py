@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'Sales',
     'User',
     'rest_framework_simplejwt',
-    'corsheaders',
 ]
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760*2
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760*2

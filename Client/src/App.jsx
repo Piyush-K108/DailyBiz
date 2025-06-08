@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSelector, connect } from "react-redux";
 import { checkAuthenticated } from "./Redux/Counter/counterAction.jsx";
 import { themeSettings } from "./theam";
+import ThemeCustomization from "./themes";
 import Layout from "./components/Layout";
 import "./App.css";
 
@@ -17,9 +18,11 @@ import Sales from "./pages/Sales/sales.jsx";
 import Vendors from "./pages/Vendors/vendors.jsx";
 import Ledger from "./pages/Ledger/ledger.jsx";
 import Login from "./pages/admin-auth/Login";
+import Profile from "./pages/Profile/Profile.jsx";
 
 const allNavItems = [
   { text: "Dashboard", path: "/dashboard", element: <Dashboard /> },
+  { text: "Profile", path: "/profile", element: <Profile /> },
   { text: "Customers", path: "/customers", element: <Customers /> },
   { text: "Products", path: "/products", element: <Products /> },
   { text: "Purchase", path: "/purchase", element: <Purchase /> },
@@ -57,7 +60,7 @@ function AppContent({ checkAuthenticated }) {
   const theme = React.useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeCustomization>
       <CssBaseline />
       <Routes>
         {isAuthenticated ? (
@@ -75,7 +78,7 @@ function AppContent({ checkAuthenticated }) {
           </>
         )}
       </Routes>
-    </ThemeProvider>
+    </ThemeCustomization>
   );
 }
 

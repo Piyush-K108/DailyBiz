@@ -124,6 +124,20 @@ const Vendors = () => {
   const columns = useMemo(
     () => [
       {
+        Header: "Picture",
+        disableSortBy: true,
+        Cell: ({ row }) => {
+          return (
+            <Avatar
+              alt="Avatar 1"
+              src={`${
+                "http://localhost:8000"
+              }${original?.imagePath?.replace(/\\/g, "/")}`}
+            />
+          );
+        },
+      },
+      {
         Header: "Name",
         accessor: "name",
       },
@@ -136,7 +150,11 @@ const Vendors = () => {
         accessor: "address",
       },
       {
-        Header: "Delivery Lead Time",
+        Header: "Total Amount",
+        accessor: "totalAmount",
+      },
+      {
+        Header: "Delivery Lead Time (Days)",
         accessor: "deliveryLeadTime",
         className: "cell-center",
       },
@@ -181,19 +199,19 @@ const Vendors = () => {
   );
 
   return (
-      <MainCard sx={{ height: "100%",px:2 }} content={false}>
-        {showBackDrop && <MuiBackdrop isLoading={showBackDrop} />}
-        <Table
-          columns={columns}
-          data={VendorsList}
-          handleAddModal={handleModal}
-          getHeaderProps={(column) => column.getSortByToggleProps()}
-          buttonName="Add Vendors"
-          getList={getVendors}
-          showButtonIcon={true}
-          title="Vendors"
-        />
-        {/* {showModal && (
+    <MainCard sx={{ height: "100%", px: 2 }} content={false}>
+      {showBackDrop && <MuiBackdrop isLoading={showBackDrop} />}
+      <Table
+        columns={columns}
+        data={VendorsList}
+        handleAddModal={handleModal}
+        getHeaderProps={(column) => column.getSortByToggleProps()}
+        buttonName="Add Vendors"
+        getList={getVendors}
+        showButtonIcon={true}
+        title="Vendors"
+      />
+      {/* {showModal && (
                 <VendorsForm
                     size="sm"
                     isPopUpShow={showModal}
@@ -202,7 +220,7 @@ const Vendors = () => {
                     updateList={getVendors}
                 />
             )} */}
-      </MainCard>
+    </MainCard>
   );
 };
 

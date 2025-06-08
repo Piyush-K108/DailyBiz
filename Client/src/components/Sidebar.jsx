@@ -134,7 +134,7 @@ const Sidebar = ({
                     onDoubleClick={handleClick}
                     variant="h6"
                     sx={{
-                      color: "#eab308",
+                      color: "#2563eb",
                       fontSize: delivery ? "1.25rem" : "2rem",
                       fontWeight: "bold",
                       userSelect: "none",
@@ -166,7 +166,7 @@ const Sidebar = ({
                           sx={{
                             backgroundColor:
                               active === text.toLowerCase()
-                                ? "#eab308"
+                                ? "#2563eb"
                                 : "transparent",
                             borderRadius: "8px",
                             mx: 1,
@@ -179,15 +179,15 @@ const Sidebar = ({
                         >
                           <ListItemIcon>
                             {React.cloneElement(icon, {
-                              style: { color: active != text.toLowerCase() ? "#FFF" : "#000" },
+                              style: {  color: active != text.toLowerCase() ? "#FFF" : "#000",marginRight: "0.5rem" },
                             })}
                           </ListItemIcon>
 
                           <ListItemText
                             primary={text}
                             primaryTypographyProps={{
-                              fontSize: "1.2rem",
-                              fontWeight: "500",
+                              fontSize: "1rem",
+                              fontWeight: "300",
                            
                               color: active != text.toLowerCase() ? "#FFF" : "#000",
                               textShadow: "0 0 4px rgba(255, 255, 255, 0.3)",
@@ -204,7 +204,7 @@ const Sidebar = ({
                         key={text}
                         sx={{
                           m: "1.5rem 0 1rem 2rem",
-                          fontSize: "0.875rem",
+                          fontSize: "0.175rem",
                           color: "#aaa",
                         }}
                       >

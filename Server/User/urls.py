@@ -16,9 +16,6 @@ urlpatterns = [
 
         path('verify_Team/',VerifyTeamView),
         path('edit_Team/',UpdateTeamView),
-
-
-        
         
 ]+  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

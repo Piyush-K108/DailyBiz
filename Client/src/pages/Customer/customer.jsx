@@ -7,6 +7,7 @@ import MainCard from "../../components/MainCard";
 import IconButton from "../../components/@extended/MuiIconButton";
 import MuiBackdrop from "../../components/Loader/MuiBackdrop";
 import Table from "../../common/table.jsx";
+import Avatar from "../../components/@extended/Avatar";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import {
   startLoader,
@@ -124,6 +125,20 @@ const Customers = () => {
   const columns = useMemo(
     () => [
       {
+        Header: "Picture",
+        disableSortBy: true,
+        Cell: ({ row }) => {
+          return (
+            <Avatar
+              alt="Avatar 1"
+              src={`${
+                "http://localhost:8000"
+              }${original?.imagePath?.replace(/\\/g, "/")}`}
+            />
+          );
+        },
+      },
+      {
         Header: "Name",
         accessor: "name",
       },
@@ -136,9 +151,8 @@ const Customers = () => {
         accessor: "address",
       },
       {
-        Header: "Delivery Lead Time",
-        accessor: "deliveryLeadTime",
-        className: "cell-center",
+        Header: "Total Purchase",
+        accessor: "totalPurchase",
       },
       {
         Header: "Actions",
@@ -181,19 +195,19 @@ const Customers = () => {
   );
 
   return (
-      <MainCard sx={{ height: "100%",px:2 }} content={false}>
-        {showBackDrop && <MuiBackdrop isLoading={showBackDrop} />}
-        <Table
-          columns={columns}
-          data={CustomersList}
-          handleAddModal={handleModal}
-          getHeaderProps={(column) => column.getSortByToggleProps()}
-          buttonName="Add Customers"
-          getList={getCustomers}
-          showButtonIcon={true}
-          title="Customers"
-        />
-        {/* {showModal && (
+    <MainCard sx={{ height: "100%", px: 2 }} content={false}>
+      {showBackDrop && <MuiBackdrop isLoading={showBackDrop} />}
+      <Table
+        columns={columns}
+        data={CustomersList}
+        handleAddModal={handleModal}
+        getHeaderProps={(column) => column.getSortByToggleProps()}
+        buttonName="Add Customers"
+        getList={getCustomers}
+        showButtonIcon={true}
+        title="Customers"
+      />
+      {/* {showModal && (
                 <CustomersForm
                     size="sm"
                     isPopUpShow={showModal}
@@ -202,7 +216,7 @@ const Customers = () => {
                     updateList={getCustomers}
                 />
             )} */}
-      </MainCard>
+    </MainCard>
   );
 };
 

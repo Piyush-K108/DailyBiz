@@ -189,6 +189,7 @@ function CreateTable(props) {
             )}
             {!showButton && (
               <Button
+              className="bg-blue-600 "
                 disabled={isStoreButton ? true : false}
                 variant="contained"
                 startIcon={showButtonIcon ? <PlusOutlined /> : ""}

@@ -212,13 +212,13 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                 <Typography
                   fontWeight="bold"
                   fontSize="0.85rem"
-                  sx={{ color:"#F2C464"  }}
+                 
                 >
                   {user.name || "Admin"}
                 </Typography>
                 <Typography
                   fontSize="0.75rem"
-                  sx={{ color:"#F2C464"  }}
+
                 >
                   {user.City || "Update IT"}
                 </Typography>
@@ -233,13 +233,13 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               onClose={() => setAnchorEl(null)}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <MenuItem onClick={() => navigate("/adminprofile")}>
+              <MenuItem onClick={() => navigate("/profile")}>
                 Profile
               </MenuItem>
-              <MenuItem onClick={() => navigate("/adminprofile")}>
+              <MenuItem onClick={() => navigate("/profile")}>
                 Upload Pic
               </MenuItem>
-              <MenuItem onClick={() => navigate("/adminprofile")}>
+              <MenuItem onClick={() => navigate("/profile")}>
                 Attach Bike?
               </MenuItem>
               <MenuItem onClick={handleClose}>Log Out</MenuItem>
